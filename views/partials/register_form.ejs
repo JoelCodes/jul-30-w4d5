@@ -1,16 +1,33 @@
-<form>
+<form method='post' action='/register' novalidate>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="email" class="form-control <%= (flash.registerErrors && flash.registerErrors.email.length && 'is-invalid') %>" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' value="<%= flash.registerEmail || ''%>">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <% if(flash.registerErrors ){ %>
+      <% flash.registerErrors.email.forEach(error => {%>
+      <div class="invalid-feedback"><%= error %></div>
+      <% }); %>
+    <% } %>
+
+  </div>
+  <div class="form-group">
+    <label for="userName">User Name</label>
+    <input type="text" class="form-control <%= (flash.registerErrors && flash.registerErrors.userName.length && 'is-invalid') %>" id="userName" aria-describedby="emailHelp"  name='userName' value="<%= flash.registerUserName || ''%>">
+    <% if(flash.registerErrors ){ %>
+      <% flash.registerErrors.userName.forEach(error => {%>
+      <div class="invalid-feedback"><%= error %></div>
+      <% }); %>
+    <% } %>
+
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    <input type="password" class="form-control <%= (flash.registerErrors && flash.registerErrors.password.length && 'is-invalid') %>" id="exampleInputPassword1" name='password'>
+    <% if(flash.registerErrors ){ %>
+      <% flash.registerErrors.password.forEach(error => {%>
+      <div class="invalid-feedback"><%= error %></div>
+      <% }); %>
+    <% } %>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
