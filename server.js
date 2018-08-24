@@ -39,8 +39,13 @@ app.post('/login', (req, res) => {
       console.log(foundUser);
       if(foundUser){
         res.cookie('userId', foundUser.id);
+        res.redirect('/');
+      } else {
+        res.render('index', {
+          loginEmail: email,
+          loginError: true
+        });
       }
-      res.redirect('/');
     });
 });
 
