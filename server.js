@@ -12,8 +12,22 @@ app.set('view engine', 'ejs');
 
 const usersDataHelper = require('./lib/users-data-helper');
 
+app.use((req, res, next) => {
+  console.log('Authentication Middleware', req.cookies);
+  usersDataHelper
+    .getUserById(req.cookies.userId)
+    .then((user) => {
+      res.locals.user = user;
+      next();
+    });
+});
+
 app.get('/', (req, res) => {
   res.render('index');
+});
+app.post('/logout', (req, res) => {
+  res.clearCookie('userId');
+  res.redirect('/');
 });
 
 app.post('/login', (req, res) => {

@@ -12,7 +12,12 @@
   <div class="container">
     <h1>Welcome to FaceTweet!</h1>
     <% if(locals.user){ %>
-      <p><% JSON.stringify(user) %></p>
+      <p>Welcome, <%= user.userName %></p>
+      <p>
+        <form method='post' action='logout'>
+          <button class='btn btn-primary' type='submit'>Log out</button>
+        </form>
+      </p>
     <% } else { %>
       <div class="row">
         <div class="col">
